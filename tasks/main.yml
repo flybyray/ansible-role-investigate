@@ -2,6 +2,14 @@
 # tasks file for investigate
 
 - name: Install investigation tools
+  ansible.builtin.dnf:
+    name: "{{ investigate_packages }}"
+    state: present
+    allowerasing: true
+  when: ansible_os_family == 'RedHat'
+
+- name: Install investigation tools
   ansible.builtin.package:
     name: "{{ investigate_packages }}"
     state: present
+  when: ansible_os_family != 'RedHat'
